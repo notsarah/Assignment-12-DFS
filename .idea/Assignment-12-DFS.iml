@@ -8,8 +8,8 @@
       <sourceFolder url="file://$MODULE_DIR$/Location.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Graph.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/OutputHeading.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Location.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Locations.cpp" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">

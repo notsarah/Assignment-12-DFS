@@ -87,8 +87,21 @@ Location* Graph::findShortestPath(Location *currentLocation) {
         /** Checks if it the current edge is shorter than the current
          * shortest, also checks if the location has already been visisted.
          * If not, it assigns the new shortestDistance */
+        if(shortestDistance > currentEdges[i].distance &&
+           !(findLocation(currentEdges[i].endLocation)->getIsVisited())) {
+            index = i;
+            shortestDistance = currentEdges[i].distance;
+        }
+    }
 
-
+    if(!(findLocation(currentEdges[index].endLocation)->getIsVisited())) {
+        currentEdges[index].isDiscovered = true;
+        /* Set currentEdges to be the new adjacent edges here */
+        return findLocation(currentEdges[index].endLocation);
+    }
+    else {
+        return NULL;
+    }
 }
 
 /*****************************************************************
