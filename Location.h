@@ -39,9 +39,9 @@ public:
     /*************
      * ACCESSORS *
      *************/
-    string getName();
-    bool getIsVisited();
-    vector<Edge> getIncidentEdges();
+    string getName() const;
+    bool getIsVisited() const;
+    vector<Edge> getIncidentEdges() const;
 
     /************
      * MUTATORS *
