@@ -27,10 +27,14 @@ struct Edge {
 class Location {
 
 public:
-    /****************
-     * CONSTRUCTORS *
-     ****************/
+    /*****************************
+     * CONSTRUCTORS & DESTRUCTOR *
+     *****************************/
     Location(string newName);
+    Location(string newName,
+             string edgeStart,
+             string edgeEnd,
+             double edgeDistance);
     ~Location();
 
     /*************

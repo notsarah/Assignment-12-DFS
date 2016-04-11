@@ -10,13 +10,43 @@
  * The constructor initializes all attributes in
  * the class Location. The following attributes are:
  *     name,
- *     isVisited,
- *     lastVisisted,
- *     paths
+ *     isVisited
  ****************************************************************/
 Location::Location(string newName) {
     name = newName;
     isVisited = false;
+}
+
+/*****************************************************************
+ * Location(string newName,
+ *          string edgeStart,
+ *          string edgeEnd,
+ *          double edgeDistance)
+ *    CONSTRUCTOR
+ * The constructor initializes all attributes in
+ * the class Location and creates a new Edge at the same time.
+ * The Location attributes are:
+ *     name,
+ *     isVisited
+ * The Edge attributes are:
+ *     fromLocation;
+ *     toLocation;
+ *     distance;
+ *     isDiscovered
+ ****************************************************************/
+Location::Location(string newName,
+                   string edgeStart,
+                   string edgeEnd,
+                   double edgeDistance)
+{
+    name      = newName;
+    isVisited = false;
+
+    Edge newEdge;
+    newEdge.fromLocation = edgeStart;
+    newEdge.toLocation   = edgeEnd;
+    newEdge.distance     = edgeDistance;
+    adjacentEdges.push_back(newEdge);
 }
 
 /*****************************************************************
@@ -62,5 +92,7 @@ void Location::setVisited(bool newVisit) {
  * Sets the name of the location.
  ****************************************************************/
 void Location::setName(string newName) {
-
+    name = newName;
 }
+
+
