@@ -41,7 +41,7 @@ public:
      *************/
     string getName();
     bool getIsVisited();
-    vector<Edge> getAdjacentEdges();
+    vector<Edge> getIncidentEdges();
 
     /************
      * MUTATORS *

@@ -66,7 +66,7 @@ vector<Location> Graph::DFSTraversal(string startingPoint) {
  * DFS traversal method.
  ****************************************************************/
 Location* Graph::findShortestPath(Location *currentLocation) {
-    vector<Edge> currentEdges = currentLocation->getAdjacentEdges();
+    vector<Edge> currentEdges = currentLocation->getIncidentEdges();
 
     int indexOfShortestDistance = 0;
     double shortestDistance = currentEdges[0].distance;
@@ -84,7 +84,7 @@ Location* Graph::findShortestPath(Location *currentLocation) {
     }
 
      currentEdges[indexOfShortestDistance].isDiscovered = true;
-     /* Set currentEdges to be the new adjacent edges */
+     /* Set currentEdges to be the new incident edges */
 
     return findLocation(currentEdges[indexOfShortestDistance].endLocation);
 
