@@ -129,15 +129,6 @@ Location* Graph::findLocation(string name) {
     return foundLocation;
 }
 
-//void Graph::addPath(string to, string from, double distance) {
-//    Edge newEdge;
-//    newEdge.endLocation = to;
-//    newEdge.fromLocation = from;
-//    newEdge.distance = distance;
-//
-//    edges.push_back(newEdge);
-//}
-
 /*****************************************************************
  * int getNumberOfLocations()
  *    ACCESSOR
@@ -161,4 +152,22 @@ string Graph::displayLocations() {
     }
 
     return output.str();
+}
+
+/*****************************************************************
+ * string addPath(string location1,
+ *                string location2,
+ *                double distance)
+ *    MUTATOR
+ * Adds a new edge that connections location1 to location2
+ ****************************************************************/
+void Graph::addPath(string location1,
+                    string location2,
+                    double distance)
+{
+    Location* loc1 = findLocation(location1);
+    Location* loc2 = findLocation(location2);
+
+    loc1->createEdge(location2, distance);
+    loc2->createEdge(location1, distance);
 }

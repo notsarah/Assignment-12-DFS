@@ -39,7 +39,7 @@ public:
     /** Utility method for DFSTraversal */
     Location* findShortestPath(Location *currentLocation);
 
-    void addPath(string to, string from, double distance);
+    void addPath(string location1, string location2, double distance);
     vector<Edge> getDiscoveredEdges();
 
     int getNumberOfLocations();
