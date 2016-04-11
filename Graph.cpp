@@ -25,16 +25,28 @@ void Graph::addLocation(Location *newLocation) {
     numberOfLocations++;
 }
 
+//This should return a vector of the Locations to visit, in order
 void Graph::DFSTraversal(string startingPoint) {
     /** needs a stack in here */
     Location* currentLocation;
 
+    //PSEUDOCODE
+
+    //Finds the edge with the shortest distance
+
+    //Adds the edge to the list
+
+
+
+
+
+
 }
 
 Location* Graph::findLocation(string name) {
-    bool found             = false;
+    bool found              = false;
     Location *foundLocation = NULL;
-    int index              = 0;
+    int index               = 0;
 
     /** Finds the specific location by name
      * within the graph */

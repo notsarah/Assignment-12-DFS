@@ -16,16 +16,6 @@
 
 using namespace std;
 
-struct Edge {
-    string fromLocation;
-    string toLocation;
-    /** distance represents the weight, to help determine the shortest distance */
-    double distance;
-    /** sets if the edge was discovered or if the path was taken */
-    bool isDiscovered = false;
-
-};
-
 class Graph {
 
 public:
