@@ -79,12 +79,12 @@ bool Location::getIsVisited() {
 }
 
 /*****************************************************************
- * vector<Edge> getAdjacentEdges()
+ * vector<Edge> getIncidentEdges()
  *    ACCESSOR
- * Return the adjacent edges of the location.
+ * Return the incident edges of the location.
  ****************************************************************/
-vector<Edge> Location::getAdjacentEdges() {
-    return adjacentEdges;
+vector<Edge> Location::getIncidentEdges() {
+    return incidentEdges;
 }
 
 
@@ -111,7 +111,7 @@ void Location::setName(string newName) {
  *                 string edgeEnd,
  *                 double edgeDistance)
  *    MUTATOR
- * Creates a new edge and adds it to the list of adjacent edges
+ * Creates a new edge and adds it to the list of incident edges
  ****************************************************************/
 void Location::createEdge(string edgeEnd,
                           double edgeDistance)

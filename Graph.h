@@ -19,18 +19,27 @@ using namespace std;
 class Graph {
 
 public:
+    /****************************
+     * CONSTRUCTOR & DESTRUCTOR *
+     ****************************/
     Graph();
     ~Graph();
+
+    /*************
+     * ACCESSORS *
+     *************/
+    Location* findLocation(string name);
+
+    /************
+     * MUTATORS *
+     ************/
     void addLocation(Location *newLocation);
     vector<Location> DFSTraversal(string startingPoint);
-
-    Location* findLocation(string name);
 
     /** Utility method for DFSTraversal */
     Location* findShortestPath(Location *currentLocation);
 
-
-    //void addPath(string to, string from, double distance);
+    void addPath(string to, string from, double distance);
     vector<Edge> getDiscoveredEdges();
 
     int getNumberOfLocations();

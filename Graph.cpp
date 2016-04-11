@@ -77,7 +77,7 @@ vector<Location> Graph::DFSTraversal(string startingPoint) {
  * DFS traversal method.
  ****************************************************************/
 Location* Graph::findShortestPath(Location *currentLocation) {
-    vector<Edge> currentEdges = currentLocation->getAdjacentEdges();
+    vector<Edge> currentEdges = currentLocation->getIncidentEdges();
 
     int index = 0; // index of the shortest distance
     double shortestDistance = currentEdges[0].distance;
