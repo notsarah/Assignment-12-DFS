@@ -95,7 +95,6 @@ Location* Graph::findShortestPath(Location *currentLocation) {
     }
 
     if(!(findLocation(currentEdges[index].toLocation)->getIsVisited())) {
-
         currentEdges[index].isDiscovered = true;
         /* Set currentEdges to be the new adjacent edges here */
         return findLocation(currentEdges[index].toLocation);
@@ -103,7 +102,6 @@ Location* Graph::findShortestPath(Location *currentLocation) {
     else {
         return NULL;
     }
-
 }
 
 /*****************************************************************
@@ -133,7 +131,7 @@ Location* Graph::findLocation(string name) {
 
 //void Graph::addPath(string to, string from, double distance) {
 //    Edge newEdge;
-//    newEdge.toLocation = to;
+//    newEdge.endLocation = to;
 //    newEdge.fromLocation = from;
 //    newEdge.distance = distance;
 //
