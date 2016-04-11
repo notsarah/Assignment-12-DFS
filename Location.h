@@ -41,13 +41,19 @@ public:
      *************/
     string getName() const;
     bool getIsVisited() const;
+    string getLastVisited() const;
+    double getDistanceTo(string otherLocation) const;
+
+
     vector<Edge> getIncidentEdges() const;
 
     /************
      * MUTATORS *
      ************/
     void setVisited(bool newVisit);
+    void setLastVisited(string newLastVisited);
     void setName(string newName);
+    void setIncidentEdges(vector<Edge> newEdges);
     void createEdge(string edgeEnd,
                     double edgeDistance);
     bool deleteEdge(string endingLocation);
@@ -61,6 +67,8 @@ private:
     bool isVisited;
     /** all of the incident edges to this location */
     vector<Edge> incidentEdges;
+    /** last visited */
+    string lastVisisted;
 };
 
 #endif //LOCATION_H

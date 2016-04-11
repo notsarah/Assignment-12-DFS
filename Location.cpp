@@ -7,6 +7,9 @@
  *************************************************************************/
 
 #include "Location.h"
+#include <iostream>
+
+using namespace std;
 
 /*****************************************************************
  * Location(string newName)
@@ -19,6 +22,7 @@
 Location::Location(string newName) {
     name = newName;
     isVisited = false;
+    lastVisisted = "";
 }
 
 /*****************************************************************
@@ -79,6 +83,29 @@ bool Location::getIsVisited() const {
 }
 
 /*****************************************************************
+ * double getDistanceTo(string otherLocation) const
+ *    ACCESSOR
+ * Returns the distance to the otherLocation, or -1 if there is
+ *  no edge to that location
+ ****************************************************************/
+double Location::getDistanceTo(string otherLocation) const
+{
+    double distance = -1;
+
+
+    for(int i = 0; i < incidentEdges.size(); ++i)
+    {
+        if(incidentEdges[i].endLocation == otherLocation)
+        {
+            distance = incidentEdges[i].distance;
+        }
+    }
+
+
+    return distance;
+}
+
+/*****************************************************************
  * vector<Edge> getIncidentEdges()
  *    ACCESSOR
  * Return the incident edges of the location.
@@ -98,7 +125,7 @@ void Location::setVisited(bool newVisit) {
 }
 
 /*****************************************************************
- * bool setName(string newName)
+ * void setName(string newName)
  *    MUTATOR
  * Sets the name of the location.
  ****************************************************************/
@@ -106,6 +133,14 @@ void Location::setName(string newName) {
     name = newName;
 }
 
+/*****************************************************************
+ * void setIncidentEdges(vector<Edge> newEdges)
+ *    MUTATOR
+ * Sets the incident edges of the location.
+ ****************************************************************/
+void Location::setIncidentEdges(vector<Edge> newEdges) {
+    incidentEdges = newEdges;
+}
 /*****************************************************************
  * void createEdge(string edgeStart,
  *                 string edgeEnd,
@@ -118,7 +153,7 @@ void Location::createEdge(string edgeEnd,
 {
     Edge newEdge;
     newEdge.endLocation   = edgeEnd;
-    newEdge.distance     = edgeDistance;
+    newEdge.distance      = edgeDistance;
     incidentEdges.push_back(newEdge);
 }
 
@@ -149,3 +184,10 @@ bool Location::deleteEdge(string endingLocation)
     return deleted;
 }
 
+string Location::getLastVisited() const {
+    return lastVisisted;
+}
+
+void Location::setLastVisited(string newLastVisited) {
+    lastVisisted = newLastVisited;
+}

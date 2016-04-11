@@ -40,7 +40,7 @@ public:
     Location* findShortestPath(Location *currentLocation);
 
     void addPath(string to, string from, double distance);
-    vector<Edge> getDiscoveredEdges();
+    string displayDiscoveredEdges(vector<Location> locations);
 
     int getNumberOfLocations();
     string displayLocations();

@@ -7,6 +7,7 @@
  *************************************************************************/
 
 #include "Graph.h"
+#include <iostream>
 
 Graph::Graph() {
     numberOfLocations = 0;
@@ -35,6 +36,7 @@ vector<Location> Graph::DFSTraversal(string startingPoint) {
     vector<Location> DFS;
 
     Location* currentLocation = findLocation(startingPoint);
+    Location* previousLocation = NULL;
 
     currentLocation->setVisited(true);
     DFS.push_back(*currentLocation);
@@ -43,16 +45,19 @@ vector<Location> Graph::DFSTraversal(string startingPoint) {
      * (it is numberOfLocations - 1, since we already visited the
      * the starting point). */
     int i = 0;
-    while (i < numberOfLocations) {
+    while (i < numberOfLocations - 1) {
 
         /** Based off the current location, it determines the next path
          * to take (edge with shortest distance)
          * findShortestPath then returns the location is
          * will travel next to */
+        previousLocation = currentLocation;
         currentLocation = findShortestPath(currentLocation);
 
         /** Sets the visit to true and adds the edge to the list */
         if(currentLocation != NULL) {
+            currentLocation->setLastVisited(DFS.back().getName());
+
             currentLocation->setVisited(true);
             DFS.push_back(*currentLocation);
             i++;
@@ -62,7 +67,9 @@ vector<Location> Graph::DFSTraversal(string startingPoint) {
              * all paths to the next location have been visited,
              * therefore will reverse and check if there is an
              * available path to a location not visited yet */
-            currentLocation = &DFS[DFS.size() - 1];
+                currentLocation = findLocation(previousLocation->getLastVisited());
+
+
         }
     }
 
@@ -77,26 +84,48 @@ vector<Location> Graph::DFSTraversal(string startingPoint) {
  * DFS traversal method.
  ****************************************************************/
 Location* Graph::findShortestPath(Location *currentLocation) {
+
+
     vector<Edge> currentEdges = currentLocation->getIncidentEdges();
 
     int index = 0; // index of the shortest distance
-    double shortestDistance = currentEdges[0].distance;
+    double shortestDistance;
 
-    for(int i = 1; i < currentEdges.size(); i++) {
+    int start = 0;
+
+    while(start < currentEdges.size()) {
+
+        if(!findLocation(currentEdges[start].endLocation)->getIsVisited()) {
+
+            shortestDistance = currentEdges[start].distance;
+            break;
+        }
+        else {
+            start++;
+
+        }
+
+    }
+
+    index = start;
+
+
+    for(int i = index; i < currentEdges.size(); ++i) {
 
         /** Checks if it the current edge is shorter than the current
-         * shortest, also checks if the location has already been visisted.
+         * shortest, also checks if the location has already been visited.
          * If not, it assigns the new shortestDistance */
-        if(shortestDistance > currentEdges[i].distance &&
-           !(findLocation(currentEdges[i].endLocation)->getIsVisited())) {
+
+        if(!findLocation(currentEdges[i].endLocation)->getIsVisited() && (shortestDistance > currentEdges[i].distance)) {
             index = i;
             shortestDistance = currentEdges[i].distance;
         }
     }
 
-    if(!(findLocation(currentEdges[index].endLocation)->getIsVisited())) {
+    if(index < currentEdges.size()) {
+
         currentEdges[index].isDiscovered = true;
-        /* Set currentEdges to be the new adjacent edges here */
+        currentLocation->setIncidentEdges(currentEdges);
         return findLocation(currentEdges[index].endLocation);
     }
     else {
@@ -129,14 +158,6 @@ Location* Graph::findLocation(string name) {
     return foundLocation;
 }
 
-//void Graph::addPath(string to, string from, double distance) {
-//    Edge newEdge;
-//    newEdge.endLocation = to;
-//    newEdge.fromLocation = from;
-//    newEdge.distance = distance;
-//
-//    edges.push_back(newEdge);
-//}
 
 /*****************************************************************
  * int getNumberOfLocations()
@@ -161,4 +182,79 @@ string Graph::displayLocations() {
     }
 
     return output.str();
+}
+
+/*****************************************************************
+ * void addPath(string location1,
+ *              string location2,
+ *              double distance)
+ *    MUTATOR
+ * Adds a new edge that connections location1 to location2
+ ****************************************************************/
+void Graph::addPath(string location1,
+                    string location2,
+                    double distance)
+{
+    Location* loc1 = findLocation(location1);
+    Location* loc2 = findLocation(location2);
+
+    loc1->createEdge(location2, distance);
+    loc2->createEdge(location1, distance);
+}
+
+
+/*****************************************************************
+ * string displayDiscoveredEdges(vector<Location> locations)
+ *    ACCESSOR
+ * RETURNS -> string of all the discovered edges and their
+ *             distances
+ ****************************************************************/
+string Graph::displayDiscoveredEdges(vector<Location> locations)
+{
+    ostringstream out;
+    double distance;
+
+    for(int i = 0; i < locations.size() - 1; ++i)
+    {
+
+        distance = locations[i].getDistanceTo(locations[i+1].getName());
+
+        int lastLocationIndex = i;
+
+        if(distance != -1) {
+            //Outputs the name of the current -> name of the next
+            out << locations[i].getName() << " -> "
+            << locations[i + 1].getName();
+
+            //Outputs the distance between the two
+            out << " (" << distance << ")";
+
+            //Outputs a comma if it isn't the last edge to output
+            if (i + 1 < locations.size() - 1) {
+                out << ", \n";
+            }
+        }
+
+        /** If distance was not found, it returns -1, reverses util it
+         * backtracks it finds the correct next edge */
+        while(distance == -1) {
+            //Outputs the name of the current -> name of the next
+            out << locations[lastLocationIndex].getName() << " -> "
+            << locations[lastLocationIndex-1].getName();
+
+            distance = locations[lastLocationIndex].getDistanceTo
+                    (locations[lastLocationIndex-1].getName());
+
+            //Outputs the distance between the two
+            out << " (" << distance << ")" << endl;
+            distance = locations[lastLocationIndex - 1].getDistanceTo
+                    (locations[i+1].getName());
+
+            lastLocationIndex--;
+        }
+
+    }
+    out << ".";
+
+    return out.str();
 }
