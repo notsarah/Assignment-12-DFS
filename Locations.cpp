@@ -29,13 +29,11 @@ Location::Location(string newName) {
  *     name,
  *     isVisited
  * The Edge attributes are:
- *     fromLocation;
- *     toLocation;
- *     distance;
+ *     endLocation,
+ *     distance,
  *     isDiscovered
  ****************************************************************/
 Location::Location(string newName,
-                   string edgeStart,
                    string edgeEnd,
                    double edgeDistance)
 {
@@ -43,10 +41,9 @@ Location::Location(string newName,
     isVisited = false;
 
     Edge newEdge;
-    newEdge.fromLocation = edgeStart;
-    newEdge.toLocation   = edgeEnd;
+    newEdge.endLocation   = edgeEnd;
     newEdge.distance     = edgeDistance;
-    adjacentEdges.push_back(newEdge);
+    incidentEdges.push_back(newEdge);
 }
 
 /*****************************************************************
@@ -95,4 +92,45 @@ void Location::setName(string newName) {
     name = newName;
 }
 
+/*****************************************************************
+ * void createEdge(string edgeStart,
+ *                 string edgeEnd,
+ *                 double edgeDistance)
+ *    MUTATOR
+ * Creates a new edge and adds it to the list of adjacent edges
+ ****************************************************************/
+void Location::createEdge(string edgeEnd,
+                          double edgeDistance)
+{
+    Edge newEdge;
+    newEdge.endLocation   = edgeEnd;
+    newEdge.distance     = edgeDistance;
+    incidentEdges.push_back(newEdge);
+}
 
+/*****************************************************************
+ * bool deleteEdge(string endingLocation)
+ *    MUTATOR
+ * Deletes the Edge from the incidentEdges vector with the
+ *  ending location specified.
+ * Returns true if the Edge was found and deleted
+ ****************************************************************/
+bool Location::deleteEdge(string endingLocation)
+{
+    bool deleted = false;
+
+    //Loops through the incident edges
+    for(int i = 0; i < incidentEdges.size(); ++i)
+    {
+        //If the ending location of the edge at index i matches
+        // the ending location of the edge to delete
+        if(incidentEdges[i].endLocation == endingLocation)
+        {
+            //Deletes the edge
+            incidentEdges.erase(incidentEdges.begin() + i);
+            deleted = true;
+        }
+    }
+
+    return deleted;
+}
