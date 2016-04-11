@@ -65,7 +65,7 @@ Location::~Location() {
 }
 
 /*****************************************************************
- * string getName()
+ * string getName() const
  *    ACCESSOR
  * Returns the name of the location
  ****************************************************************/
@@ -74,7 +74,7 @@ string Location::getName() const {
 }
 
 /*****************************************************************
- * bool getIsVisited()
+ * bool getIsVisited() const
  *    ACCESSOR
  * Returns if the location has been visited already.
  ****************************************************************/
@@ -106,14 +106,30 @@ double Location::getDistanceTo(string otherLocation) const
 }
 
 /*****************************************************************
- * vector<Edge> getIncidentEdges()
+ * vector<Edge> getIncidentEdges() const
  *    ACCESSOR
  * Return the incident edges of the location.
  ****************************************************************/
 vector<Edge> Location::getIncidentEdges() const {
     return incidentEdges;
 }
+/*****************************************************************
+ * string getLastVisited() const
+ *    ACCESSOR
+ * Return the last visited location.
+ ****************************************************************/
+string Location::getLastVisited() const {
+    return lastVisisted;
+}
 
+/*****************************************************************
+ * void setLastVisited(string newLastVisited)
+ *    MUTATOR
+ * Sets last visited to
+ ****************************************************************/
+void Location::setLastVisited(string newLastVisited) {
+    lastVisisted = newLastVisited;
+}
 
 /*****************************************************************
  * void setIsVisited()
@@ -182,12 +198,4 @@ bool Location::deleteEdge(string endingLocation)
     }
 
     return deleted;
-}
-
-string Location::getLastVisited() const {
-    return lastVisisted;
-}
-
-void Location::setLastVisited(string newLastVisited) {
-    lastVisisted = newLastVisited;
 }
