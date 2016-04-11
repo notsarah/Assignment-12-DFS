@@ -1,7 +1,7 @@
 /*************************************************************************
  * AUTHOR          : Connor Peace & Sarah Singletary
  * ASSIGNMENT #12  : DFS
- * CLASS           : CS1C
+ * CLASS           : CS1D
  * SECTION         : MW: 4:30 - 7:50 PM
  * DUE DATE        : 4/11/16
  *************************************************************************/
@@ -9,11 +9,13 @@
 #include "Header.h"
 
 int main() {
-    Graph map;
-    vector<Location> DFS;
+    Graph map;            //Simulates the map of the United States
+    vector<Location> DFS; //Stores the DFS traversal of the graph
 
+    //Outputs the heading for the assignment
     cout << OutputHeading();
 
+    //Adds all of the vertices to the graph
     map.addLocation(new Location("Dallas"));
     map.addLocation(new Location("Seattle"));
     map.addLocation(new Location("San Francisco"));
@@ -27,6 +29,7 @@ int main() {
     map.addLocation(new Location("Miami"));
     map.addLocation(new Location("New York"));
 
+    //Adds all of the edges to the graph
     map.addPath("Dallas", "Houston", 239);
     map.addPath("Dallas", "Los Angeles", 1435);
     map.addPath("Dallas", "Kansas City", 496);
@@ -60,9 +63,10 @@ int main() {
     map.addPath("Atlanta", "Miami", 661);
     map.addPath("Atlanta", "New York", 888);
 
-
+    //Performs a Depth-First Search on the graph
     DFS = map.DFSTraversal("Dallas");
 
+    //Displays the cities in the order in which they are visited
     cout << "+------------------------+\n"
          << "|      DFS TRAVERSAL     |\n"
          << "+------------------------+\n";
@@ -70,14 +74,11 @@ int main() {
         cout << i + 1 << ":\t" << DFS[i].getName() << "\n";
     }
 
+    //Displays all of the discovered edges
     cout << "\n+------------------------+\n"
          << "|    DISCOVERED EDGES    |\n"
          << "+------------------------+\n";
     cout << map.displayDiscoveredEdges(DFS);
 
-
-
-
     return 0;
-
 }

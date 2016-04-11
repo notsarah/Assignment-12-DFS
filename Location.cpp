@@ -1,7 +1,7 @@
 /*************************************************************************
  * AUTHOR          : Connor Peace & Sarah Singletary
  * ASSIGNMENT #12  : DFS
- * CLASS           : CS1C
+ * CLASS           : CS1D
  * SECTION         : MW: 4:30 - 7:50 PM
  * DUE DATE        : 4/11/16
  *************************************************************************/
@@ -11,13 +11,18 @@
 
 using namespace std;
 
+                /*****************************
+                 * CONSTRUCTORS & DESTRUCTOR *
+                 *****************************/
+
 /*****************************************************************
  * Location(string newName)
  *    CONSTRUCTOR
  * The constructor initializes all attributes in
  * the class Location. The following attributes are:
  *     name,
- *     isVisited
+ *     isVisited,
+ *     lastVisited
  ****************************************************************/
 Location::Location(string newName) {
     name = newName;
@@ -35,7 +40,8 @@ Location::Location(string newName) {
  * the class Location and creates a new Edge at the same time.
  * The Location attributes are:
  *     name,
- *     isVisited
+ *     isVisited,
+ *     lastVisited
  * The Edge attributes are:
  *     endLocation,
  *     distance,
@@ -47,6 +53,7 @@ Location::Location(string newName,
 {
     name      = newName;
     isVisited = false;
+    lastVisisted = "";
 
     Edge newEdge;
     newEdge.endLocation   = edgeEnd;
@@ -55,7 +62,7 @@ Location::Location(string newName,
 }
 
 /*****************************************************************
- * Location(string newName)
+ * ~Location()
  *    DESTRUCTOR
  * Sets all attributes to the default values.
  ****************************************************************/
@@ -64,10 +71,14 @@ Location::~Location() {
     name = "";
 }
 
+                        /*************
+                         * ACCESSORS *
+                         *************/
+
 /*****************************************************************
  * string getName()
  *    ACCESSOR
- * Returns the name of the location
+ * RETURNS -> the name of the location
  ****************************************************************/
 string Location::getName() const {
     return name;
@@ -76,22 +87,30 @@ string Location::getName() const {
 /*****************************************************************
  * bool getIsVisited()
  *    ACCESSOR
- * Returns if the location has been visited already.
+ * RETURNS -> if the location has been visited already.
  ****************************************************************/
 bool Location::getIsVisited() const {
     return isVisited;
 }
 
 /*****************************************************************
+ * string getLastVisited()
+ *    ACCESSOR
+ * RETURNS -> the last location visited
+ ****************************************************************/
+string Location::getLastVisited() const {
+    return lastVisisted;
+}
+
+/*****************************************************************
  * double getDistanceTo(string otherLocation) const
  *    ACCESSOR
- * Returns the distance to the otherLocation, or -1 if there is
- *  no edge to that location
+ * RETURNS -> the distance to the otherLocation, or -1 if there is
+ *             no edge to that location
  ****************************************************************/
 double Location::getDistanceTo(string otherLocation) const
 {
     double distance = -1;
-
 
     for(int i = 0; i < incidentEdges.size(); ++i)
     {
@@ -101,27 +120,38 @@ double Location::getDistanceTo(string otherLocation) const
         }
     }
 
-
     return distance;
 }
 
 /*****************************************************************
  * vector<Edge> getIncidentEdges()
  *    ACCESSOR
- * Return the incident edges of the location.
+ * RETURNS -> the incident edges of the location.
  ****************************************************************/
 vector<Edge> Location::getIncidentEdges() const {
     return incidentEdges;
 }
 
+                        /************
+                         * MUTATORS *
+                         ************/
 
 /*****************************************************************
- * void setIsVisited()
+ * void setVisited(bool newVisit)
  *    MUTATOR
  * Sets if the location has been visited.
  ****************************************************************/
 void Location::setVisited(bool newVisit) {
     isVisited = newVisit;
+}
+
+/*****************************************************************
+ * void setLastVisited(string newLastVisited)
+ *    MUTATOR
+ * Sets the last location that was visited
+ ****************************************************************/
+void Location::setLastVisited(string newLastVisited) {
+    lastVisisted = newLastVisited;
 }
 
 /*****************************************************************
@@ -142,8 +172,7 @@ void Location::setIncidentEdges(vector<Edge> newEdges) {
     incidentEdges = newEdges;
 }
 /*****************************************************************
- * void createEdge(string edgeStart,
- *                 string edgeEnd,
+ * void createEdge(string edgeEnd,
  *                 double edgeDistance)
  *    MUTATOR
  * Creates a new edge and adds it to the list of incident edges
@@ -162,7 +191,7 @@ void Location::createEdge(string edgeEnd,
  *    MUTATOR
  * Deletes the Edge from the incidentEdges vector with the
  *  ending location specified.
- * Returns true if the Edge was found and deleted
+ * RETURNS -> true if the Edge was found and deleted
  ****************************************************************/
 bool Location::deleteEdge(string endingLocation)
 {
@@ -182,12 +211,4 @@ bool Location::deleteEdge(string endingLocation)
     }
 
     return deleted;
-}
-
-string Location::getLastVisited() const {
-    return lastVisisted;
-}
-
-void Location::setLastVisited(string newLastVisited) {
-    lastVisisted = newLastVisited;
 }

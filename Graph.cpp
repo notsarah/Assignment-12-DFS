@@ -7,24 +7,31 @@
  *************************************************************************/
 
 #include "Graph.h"
-#include <iostream>
 
+                /*****************************
+                 * CONSTRUCTORS & DESTRUCTOR *
+                 *****************************/
+
+/*****************************************************************
+ * Graph()
+ *    CONSTRUCTOR
+ * The constructor initializes the numberOfLocations to 0
+ ****************************************************************/
 Graph::Graph() {
     numberOfLocations = 0;
-
 }
 
+/*****************************************************************
+ * ~Graph()
+ *    DESTRUCTOR
+ * The destructor destroys the graph
+ ****************************************************************/
 Graph::~Graph() {
-
 }
 
-void Graph::addLocation(Location *newLocation) {
-
-    vertices.push_back(*newLocation);
-
-    /** Increments every time a location is added */
-    numberOfLocations++;
-}
+                        /*************
+                         * ACCESSORS *
+                         *************/
 
 /*****************************************************************
  * vector<Location> DFSTraversal(string startingPoint)
@@ -32,7 +39,7 @@ void Graph::addLocation(Location *newLocation) {
  * This method implements a DFSTraversal
  * RETURNS -> vector in the depth-first search traversal order.
  ****************************************************************/
-vector<Location> Graph::DFSTraversal(string startingPoint) {
+vector<Location> Graph::DFSTraversal(string startingPoint) const {
     vector<Location> DFS;
 
     Location* currentLocation = findLocation(startingPoint);
@@ -68,13 +75,10 @@ vector<Location> Graph::DFSTraversal(string startingPoint) {
              * therefore will reverse and check if there is an
              * available path to a location not visited yet */
                 currentLocation = findLocation(previousLocation->getLastVisited());
-
-
         }
     }
 
     return DFS;
-
 }
 
 /*****************************************************************
@@ -83,8 +87,7 @@ vector<Location> Graph::DFSTraversal(string startingPoint) {
  * Finds the shortest path, used as a utility method for
  * DFS traversal method.
  ****************************************************************/
-Location* Graph::findShortestPath(Location *currentLocation) {
-
+Location* Graph::findShortestPath(Location *currentLocation)const{
 
     vector<Edge> currentEdges = currentLocation->getIncidentEdges();
 
@@ -102,13 +105,10 @@ Location* Graph::findShortestPath(Location *currentLocation) {
         }
         else {
             start++;
-
         }
-
     }
 
     index = start;
-
 
     for(int i = index; i < currentEdges.size(); ++i) {
 
@@ -116,14 +116,15 @@ Location* Graph::findShortestPath(Location *currentLocation) {
          * shortest, also checks if the location has already been visited.
          * If not, it assigns the new shortestDistance */
 
-        if(!findLocation(currentEdges[i].endLocation)->getIsVisited() && (shortestDistance > currentEdges[i].distance)) {
+        if(!findLocation(currentEdges[i].endLocation)->getIsVisited()
+           && (shortestDistance > currentEdges[i].distance)) {
+
             index = i;
             shortestDistance = currentEdges[i].distance;
         }
     }
 
     if(index < currentEdges.size()) {
-
         currentEdges[index].isDiscovered = true;
         currentLocation->setIncidentEdges(currentEdges);
         return findLocation(currentEdges[index].endLocation);
@@ -139,7 +140,7 @@ Location* Graph::findShortestPath(Location *currentLocation) {
  * Finds if the location exist within the graph.
  * RETURNS -> the found location or null if not found
  ****************************************************************/
-Location* Graph::findLocation(string name) {
+Location* Graph::findLocation(string name) const {
     bool found              = false;
     Location *foundLocation = NULL;
     int index               = 0;
@@ -151,20 +152,18 @@ Location* Graph::findLocation(string name) {
             found = true;
             foundLocation = &vertices[index];
         }
-
         index++;
     }
 
     return foundLocation;
 }
 
-
 /*****************************************************************
  * int getNumberOfLocations()
  *    ACCESSOR
  * RETURNS -> The # of locations within the graph.
  ****************************************************************/
-int Graph::getNumberOfLocations() {
+int Graph::getNumberOfLocations() const {
     return numberOfLocations;
 }
 
@@ -174,7 +173,7 @@ int Graph::getNumberOfLocations() {
  * Outputs each location within the graph.
  * RETURNS -> string of locations
  ****************************************************************/
-string Graph::displayLocations() {
+string Graph::displayLocations() const {
     ostringstream output;
     for(int i = 0; i < numberOfLocations; i++) {
         output << vertices[i].getName()
@@ -182,6 +181,24 @@ string Graph::displayLocations() {
     }
 
     return output.str();
+}
+
+                        /************
+                         * MUTATORS *
+                         ************/
+
+/*****************************************************************
+ * vector<Location> DFSTraversal(string startingPoint)
+ *    MUTATOR
+ * This method implements a DFSTraversal
+ * RETURNS -> vector in the depth-first search traversal order.
+ ****************************************************************/
+void Graph::addLocation(Location *newLocation) {
+
+    vertices.push_back(*newLocation);
+
+    /** Increments every time a location is added */
+    numberOfLocations++;
 }
 
 /*****************************************************************
@@ -201,7 +218,6 @@ void Graph::addPath(string location1,
     loc1->createEdge(location2, distance);
     loc2->createEdge(location1, distance);
 }
-
 
 /*****************************************************************
  * string displayDiscoveredEdges(vector<Location> locations)
@@ -252,7 +268,6 @@ string Graph::displayDiscoveredEdges(vector<Location> locations)
 
             lastLocationIndex--;
         }
-
     }
     out << ".";
 

@@ -1,7 +1,7 @@
 /*************************************************************************
  * AUTHOR          : Connor Peace & Sarah Singletary
  * ASSIGNMENT #12  : DFS
- * CLASS           : CS1C
+ * CLASS           : CS1D
  * SECTION         : MW: 4:30 - 7:50 PM
  * DUE DATE        : 4/11/16
  *************************************************************************/
@@ -28,28 +28,25 @@ public:
     /*************
      * ACCESSORS *
      *************/
-    Location* findLocation(string name);
+    vector<Location> DFSTraversal(string startingPoint) const;
+    /** Utility method for DFSTraversal */
+    Location* findShortestPath(Location *currentLocation) const;
+    Location* findLocation(string name) const;
+    int getNumberOfLocations() const;
+    string displayLocations() const;
 
     /************
      * MUTATORS *
      ************/
     void addLocation(Location *newLocation);
-    vector<Location> DFSTraversal(string startingPoint);
-
-    /** Utility method for DFSTraversal */
-    Location* findShortestPath(Location *currentLocation);
-
-    void addPath(string to, string from, double distance);
+    void addPath(string location1, string location2, double distance);
     string displayDiscoveredEdges(vector<Location> locations);
 
-    int getNumberOfLocations();
-    string displayLocations();
-
-
 private:
+    /** Holds all of the vertices */
     vector<Location> vertices;
+    /** Counts the number of vertices */
     int numberOfLocations;
 };
-
 
 #endif //GRAPH_H

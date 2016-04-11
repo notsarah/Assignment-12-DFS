@@ -1,7 +1,7 @@
 /*************************************************************************
  * AUTHOR          : Connor Peace & Sarah Singletary
  * ASSIGNMENT #12  : DFS
- * CLASS           : CS1C
+ * CLASS           : CS1D
  * SECTION         : MW: 4:30 - 7:50 PM
  * DUE DATE        : 4/11/16
  *************************************************************************/
@@ -18,7 +18,7 @@ using namespace std;
 struct Edge {
     /** represents the name of the ending Location of the edge */
     string endLocation;
-    /** distance represents the weight, to help determine the shortest distance */
+    /** distance represents the weight of the edge*/
     double distance;
     /** sets if the edge was discovered or if the path was taken */
     bool isDiscovered = false;
@@ -43,8 +43,6 @@ public:
     bool getIsVisited() const;
     string getLastVisited() const;
     double getDistanceTo(string otherLocation) const;
-
-
     vector<Edge> getIncidentEdges() const;
 
     /************
@@ -57,8 +55,6 @@ public:
     void createEdge(string edgeEnd,
                     double edgeDistance);
     bool deleteEdge(string endingLocation);
-
-
 
 private:
     /** name represent a single vertices */
