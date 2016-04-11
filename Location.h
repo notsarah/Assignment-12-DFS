@@ -41,6 +41,7 @@ public:
      *************/
     string getName() const;
     bool getIsVisited() const;
+    double getDistanceTo(string otherLocation) const;
     vector<Edge> getIncidentEdges() const;
 
     /************

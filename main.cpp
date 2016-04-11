@@ -33,9 +33,17 @@ int main() {
     cout << "Number of locations: " << map.getNumberOfLocations() << endl;
     cout << map.displayLocations();
 
-    /* Commented out until needed
-    DFS = map.DFSTraversal("Dallas");
-     */
+    /* Commented out until needed */
+//    DFS = map.DFSTraversal("Dallas");
+
+    //Output the discovered edges
+    cout << map.displayDiscoveredEdges(DFS);
+
+    //Output the total mileage for the DFS
+
+
+
+
 
     return 0;
 

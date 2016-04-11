@@ -79,6 +79,27 @@ bool Location::getIsVisited() const {
 }
 
 /*****************************************************************
+ * double getDistanceTo(string otherLocation) const
+ *    ACCESSOR
+ * Returns the distance to the otherLocation, or -1 if there is
+ *  no edge to that location
+ ****************************************************************/
+double Location::getDistanceTo(string otherLocation) const
+{
+    double distance = -1;
+
+    for(int i = 0; i < incidentEdges.size(); ++i)
+    {
+        if(incidentEdges[i].endLocation == otherLocation)
+        {
+            distance = incidentEdges[i].distance;
+        }
+    }
+
+    return distance;
+}
+
+/*****************************************************************
  * vector<Edge> getIncidentEdges()
  *    ACCESSOR
  * Return the incident edges of the location.
@@ -86,7 +107,6 @@ bool Location::getIsVisited() const {
 vector<Edge> Location::getIncidentEdges() const {
     return incidentEdges;
 }
-
 
 /*****************************************************************
  * void setIsVisited()

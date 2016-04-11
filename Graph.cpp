@@ -6,6 +6,7 @@
  * DUE DATE        : 4/11/16
  *************************************************************************/
 
+#include <iostream>
 #include "Graph.h"
 
 Graph::Graph() {
@@ -170,4 +171,36 @@ void Graph::addPath(string location1,
 
     loc1->createEdge(location2, distance);
     loc2->createEdge(location1, distance);
+}
+
+/*****************************************************************
+ * string displayDiscoveredEdges(vector<Location> locations)
+ *    ACCESSOR
+ * RETURNS -> string of all the discovered edges and their
+ *             distances
+ ****************************************************************/
+string Graph::displayDiscoveredEdges(vector<Location> locations)
+{
+    ostringstream out;
+
+    for(int i = 0; i < locations.size() - 1; ++i)
+    {
+        //Outputs the name of the current -> name of the next
+        out << locations[i].getName() << " -> "
+            << locations[i+1].getName();
+
+        //Outputs the distance between the two
+        out << " ("
+            << locations[i].getDistanceTo(locations[i+1].getName())
+            << " )";
+
+        //Outputs a comma if it isn't the last edge to output
+        if(i + 1 < locations.size() - 1)
+        {
+            out << ", ";
+        }
+    }
+    out << ".";
+
+    return out.str();
 }
