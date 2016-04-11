@@ -22,25 +22,23 @@ public:
     Graph();
     ~Graph();
     void addLocation(Location *newLocation);
-    void DFSTraversal(string startingPoint);
+    vector<Location> DFSTraversal(string startingPoint);
 
     Location* findLocation(string name);
 
     /** Utility method for DFSTraversal */
-//    Location* findNextEdge(Location *currentLocation);
+    Location* findShortestPath(Location *currentLocation);
 
 
-    void addPath(string to, string from, double distance);
-//    vector<Edge> getDiscoveredEdges();
-    vector<Edge> getPaths();
+    //void addPath(string to, string from, double distance);
+    vector<Edge> getDiscoveredEdges();
 
     int getNumberOfLocations();
-    string displayLocation();
+    string displayLocations();
 
 
 private:
     vector<Location> vertices;
-    vector<Edge> edges;
     int numberOfLocations;
 };
 

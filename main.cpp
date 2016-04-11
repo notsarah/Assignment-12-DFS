@@ -10,6 +10,7 @@
 
 int main() {
     Graph map;
+    vector<Location> DFS;
 
     cout << OutputHeading();
 
@@ -30,7 +31,11 @@ int main() {
      * can delete this later!! */
     cout << "*** TESTING ***\n";
     cout << "Number of locations: " << map.getNumberOfLocations() << endl;
-    cout << map.displayLocation();
+    cout << map.displayLocations();
+
+    /* Commented out until needed
+    DFS = map.DFSTraversal("Dallas");
+     */
 
     return 0;
 

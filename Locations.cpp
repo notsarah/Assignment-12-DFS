@@ -1,6 +1,10 @@
-//
-// Created by Sarah Singletary on 4/7/16.
-//
+/*************************************************************************
+ * AUTHOR          : Connor Peace & Sarah Singletary
+ * ASSIGNMENT #12  : DFS
+ * CLASS           : CS1C
+ * SECTION         : MW: 4:30 - 7:50 PM
+ * DUE DATE        : 4/11/16
+ *************************************************************************/
 
 #include "Location.h"
 
@@ -75,6 +79,16 @@ bool Location::getIsVisited() {
 }
 
 /*****************************************************************
+ * vector<Edge> getAdjacentEdges()
+ *    ACCESSOR
+ * Return the adjacent edges of the location.
+ ****************************************************************/
+vector<Edge> Location::getAdjacentEdges() {
+    return adjacentEdges;
+}
+
+
+/*****************************************************************
  * void setIsVisited()
  *    MUTATOR
  * Sets if the location has been visited.
@@ -134,3 +148,4 @@ bool Location::deleteEdge(string endingLocation)
 
     return deleted;
 }
+
