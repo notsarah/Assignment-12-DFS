@@ -29,8 +29,7 @@ string OutputHeading() {
            << " depth-first search that starts at Dallas using \n"
            << " the map of the United States. It always chooses\n"
            << " the edge with the smallest mileage. It also    \n"
-        //I think there's a word missing here?
-           << " all edges that were discovered.                \n\n";
+           << " outputs all edges that were discovered.        \n\n";
 
     return output.str();
 

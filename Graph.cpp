@@ -25,24 +25,77 @@ void Graph::addLocation(Location *newLocation) {
     numberOfLocations++;
 }
 
-//This should return a vector of the Locations to visit, in order
-void Graph::DFSTraversal(string startingPoint) {
-    /** needs a stack in here */
-    Location* currentLocation;
+/*****************************************************************
+ * vector<Location> DFSTraversal(string startingPoint)
+ *    ACCESSOR
+ * This method implements a DFSTraversal
+ * RETURNS -> vector in the depth-first search traversal order.
+ ****************************************************************/
+vector<Location> Graph::DFSTraversal(string startingPoint) {
+    vector<Location> DFS;
 
-    //PSEUDOCODE
+    Location* currentLocation = findLocation(startingPoint);
 
-    //Finds the edge with the shortest distance
+    currentLocation->setVisited(true);
+    DFS.push_back(*currentLocation);
 
-    //Adds the edge to the list
+    /** Ensures it won't exceed the number of locations there are,
+     * (it is numberOfLocations - 1, since we already visited the
+     * the starting point). */
+    for(int i = 0; i < numberOfLocations - 1; i++) {
 
+        /** Based off the current location, it determines the next path
+         * to take (edge with shortest distance)
+         * findShortestPath then returns the location is
+         * will travel next to */
+        currentLocation = findShortestPath(currentLocation);
 
+        /** Sets the visit to true and adds the edge to the list */
+        currentLocation->setVisited(true);
+        DFS.push_back(*currentLocation);
+    }
 
-
-
+    return DFS;
 
 }
 
+/*****************************************************************
+ * Location* findShortestPath(Location *currentLocation)
+ *    ACCESSOR
+ * Finds the shortest path, used as a utility method for
+ * DFS traversal method.
+ ****************************************************************/
+Location* Graph::findShortestPath(Location *currentLocation) {
+    vector<Edge> currentEdges = currentLocation->getAdjacentEdges();
+
+    int indexOfShortestDistance = 0;
+    double shortestDistance = currentEdges[0].distance;
+
+    for(int i = 1; i < currentEdges.size(); i++) {
+
+        /** Checks if it the current edge is shorter than the current
+         * shortest, also checks if the location has already been visisted.
+         * If not, it assigns the new shortestDistance */
+        if(shortestDistance > currentEdges[i].distance &&
+           !(findLocation(currentEdges[i].toLocation)->getIsVisited())) {
+            indexOfShortestDistance = i;
+            shortestDistance = currentEdges[i].distance;
+        }
+    }
+
+     currentEdges[indexOfShortestDistance].isDiscovered = true;
+     /* Set currentEdges to be the new adjacent edges */
+
+    return findLocation(currentEdges[indexOfShortestDistance].toLocation);
+
+}
+
+/*****************************************************************
+ * Location* findLocation(string name)
+ *    ACCESSOR
+ * Finds if the location exist within the graph.
+ * RETURNS -> the found location or null if not found
+ ****************************************************************/
 Location* Graph::findLocation(string name) {
     bool found              = false;
     Location *foundLocation = NULL;
@@ -62,24 +115,31 @@ Location* Graph::findLocation(string name) {
     return foundLocation;
 }
 
-vector<Edge> Graph::getPaths() {
-    return edges;
-}
+//void Graph::addPath(string to, string from, double distance) {
+//    Edge newEdge;
+//    newEdge.toLocation = to;
+//    newEdge.fromLocation = from;
+//    newEdge.distance = distance;
+//
+//    edges.push_back(newEdge);
+//}
 
-void Graph::addPath(string to, string from, double distance) {
-    Edge newEdge;
-    newEdge.toLocation = to;
-    newEdge.fromLocation = from;
-    newEdge.distance = distance;
-
-    edges.push_back(newEdge);
-}
-
+/*****************************************************************
+ * int getNumberOfLocations()
+ *    ACCESSOR
+ * RETURNS -> The # of locations within the graph.
+ ****************************************************************/
 int Graph::getNumberOfLocations() {
     return numberOfLocations;
 }
 
-string Graph::displayLocation() {
+/*****************************************************************
+ * string displayLocations()
+ *    ACCESSOR
+ * Outputs each location within the graph.
+ * RETURNS -> string of locations
+ ****************************************************************/
+string Graph::displayLocations() {
     ostringstream output;
     for(int i = 0; i < numberOfLocations; i++) {
         output << vertices[i].getName()
