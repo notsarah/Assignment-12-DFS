@@ -44,11 +44,11 @@ public:
 
     int getNumberOfLocations();
     string displayLocations();
-
+    int numberOfLocations;
 
 private:
     vector<Location> vertices;
-    int numberOfLocations;
+
 };
 
 

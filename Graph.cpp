@@ -42,7 +42,8 @@ vector<Location> Graph::DFSTraversal(string startingPoint) {
     /** Ensures it won't exceed the number of locations there are,
      * (it is numberOfLocations - 1, since we already visited the
      * the starting point). */
-    for(int i = 0; i < numberOfLocations - 1; i++) {
+    int i = 0;
+    while (i < numberOfLocations) {
 
         /** Based off the current location, it determines the next path
          * to take (edge with shortest distance)
@@ -51,8 +52,18 @@ vector<Location> Graph::DFSTraversal(string startingPoint) {
         currentLocation = findShortestPath(currentLocation);
 
         /** Sets the visit to true and adds the edge to the list */
-        currentLocation->setVisited(true);
-        DFS.push_back(*currentLocation);
+        if(currentLocation != NULL) {
+            currentLocation->setVisited(true);
+            DFS.push_back(*currentLocation);
+            i++;
+        }
+        else {
+            /** If the current location sent back is NULL, it means
+             * all paths to the next location have been visited,
+             * therefore will reverse and check if there is an
+             * available path to a location not visited yet */
+            currentLocation = &DFS[DFS.size() - 1];
+        }
     }
 
     return DFS;
@@ -68,7 +79,7 @@ vector<Location> Graph::DFSTraversal(string startingPoint) {
 Location* Graph::findShortestPath(Location *currentLocation) {
     vector<Edge> currentEdges = currentLocation->getIncidentEdges();
 
-    int indexOfShortestDistance = 0;
+    int index = 0; // index of the shortest distance
     double shortestDistance = currentEdges[0].distance;
 
     for(int i = 1; i < currentEdges.size(); i++) {
@@ -76,17 +87,7 @@ Location* Graph::findShortestPath(Location *currentLocation) {
         /** Checks if it the current edge is shorter than the current
          * shortest, also checks if the location has already been visisted.
          * If not, it assigns the new shortestDistance */
-        if(shortestDistance > currentEdges[i].distance &&
-           !(findLocation(currentEdges[i].endLocation)->getIsVisited())) {
-            indexOfShortestDistance = i;
-            shortestDistance = currentEdges[i].distance;
-        }
-    }
 
-     currentEdges[indexOfShortestDistance].isDiscovered = true;
-     /* Set currentEdges to be the new incident edges */
-
-    return findLocation(currentEdges[indexOfShortestDistance].endLocation);
 
 }
 
