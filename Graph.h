@@ -28,10 +28,10 @@ public:
     /*************
      * ACCESSORS *
      *************/
-    vector<Location> DFSTraversal(string startingPoint) const;
+    vector<Location> DFSTraversal(string startingPoint);
     /** Utility method for DFSTraversal */
-    Location* findShortestPath(Location *currentLocation) const;
-    Location* findLocation(string name) const;
+    Location* findShortestPath(Location *currentLocation);
+    Location* findLocation(string name);
     int getNumberOfLocations() const;
     string displayLocations() const;
 

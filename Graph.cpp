@@ -39,7 +39,7 @@ Graph::~Graph() {
  * This method implements a DFSTraversal
  * RETURNS -> vector in the depth-first search traversal order.
  ****************************************************************/
-vector<Location> Graph::DFSTraversal(string startingPoint) const {
+vector<Location> Graph::DFSTraversal(string startingPoint) {
     vector<Location> DFS;
 
     Location* currentLocation = findLocation(startingPoint);
@@ -87,7 +87,7 @@ vector<Location> Graph::DFSTraversal(string startingPoint) const {
  * Finds the shortest path, used as a utility method for
  * DFS traversal method.
  ****************************************************************/
-Location* Graph::findShortestPath(Location *currentLocation)const{
+Location* Graph::findShortestPath(Location *currentLocation) {
 
     vector<Edge> currentEdges = currentLocation->getIncidentEdges();
 
@@ -140,7 +140,7 @@ Location* Graph::findShortestPath(Location *currentLocation)const{
  * Finds if the location exist within the graph.
  * RETURNS -> the found location or null if not found
  ****************************************************************/
-Location* Graph::findLocation(string name) const {
+Location* Graph::findLocation(string name) {
     bool found              = false;
     Location *foundLocation = NULL;
     int index               = 0;
@@ -263,10 +263,18 @@ string Graph::displayDiscoveredEdges(vector<Location> locations)
 
             //Outputs the distance between the two
             out << " (" << distance << ")" << endl;
+
             distance = locations[lastLocationIndex - 1].getDistanceTo
                     (locations[i+1].getName());
 
-            lastLocationIndex--;
+            if(distance != -1) {
+                out << locations[lastLocationIndex - 1].getName() << " -> "
+                    << locations[i + 1].getName()
+                    << " (" << distance << ")" << endl;
+            }
+            else {
+                lastLocationIndex--;
+            }
         }
     }
     out << ".";

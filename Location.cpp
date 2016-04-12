@@ -132,14 +132,6 @@ vector<Edge> Location::getIncidentEdges() const {
     return incidentEdges;
 }
 
-/*****************************************************************
- * string getLastVisited() const
- *    ACCESSOR
- * Return the last visited location.
- ****************************************************************/
-string Location::getLastVisited() const {
-    return lastVisisted;
-}
 
                         /************
                          * MUTATORS *
