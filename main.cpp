@@ -35,7 +35,7 @@ int main() {
     map.addPath("Dallas", "Kansas City", 496);
     map.addPath("Dallas", "Atlanta", 781);
 
-    map.addPath("Seattle", "San Francisco", 381);
+    map.addPath("Seattle", "San Francisco", 807);
     map.addPath("Seattle", "Denver", 1331);
     map.addPath("Seattle", "Chicago", 2097);
 
